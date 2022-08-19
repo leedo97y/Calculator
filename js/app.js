@@ -1,14 +1,26 @@
-const button = document.querySelectorAll("#button");
+const form = document.querySelector("form");
+const displayBox = document.querySelector(".display-box");
+const inputNumber = document.querySelectorAll("#button");
+const inputResult = document.querySelector("#btn-result");
+const inputClear = document.querySelector("#btn");
 
-function onClickBtn(event) {
-  const value = parseInt(event.target.textContent);
-  if (typeof value === NaN) {
-    event.target.textContent = "";
-  }
-  console.log(value);
-}
+const display = (e) => {
+  const value = e.target.value;
+  displayBox.value += value;
+};
 
-button.forEach((btn) => {
-  addEventListener("click", onClickBtn);
+const calculate = (e) => {
+  displayBox.value = eval(e.target.form[0].value);
+};
+// eval 코드를 일단 쓰긴 했지만, 해킹 당할 위험이 크다.
+
+const clear = () => {
+  displayBox.value = "";
+};
+
+inputNumber.forEach((item) => {
+  item.addEventListener("click", display);
 });
-// 다시짜기
+
+inputResult.addEventListener("click", calculate);
+inputClear.addEventListener("click", clear);
